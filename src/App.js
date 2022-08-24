@@ -38,7 +38,7 @@ function App() {
 
   useEffect(() => {
     const fetchForecast = async () => {
-      const resp = await getForecast()
+      const resp = await getForecast(searchState)
       setForecast(resp)
     }
     fetchForecast()
