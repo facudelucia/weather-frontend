@@ -5,9 +5,9 @@ const BASE_URL = 'https://weather-facu.herokuapp.com/v1'
 export const getLocation = async () => {
     try {
         const { data } = await axios.get(`${BASE_URL}/location`)
-        return data?.data?.city
+        return data
     } catch (error) {
-        return error
+        return error.response
     }
 }
 
@@ -15,13 +15,13 @@ export const getWeather = async (city) => {
     try {
         if (city) {
             const { data } = await axios.get(`${BASE_URL}/current/${city}`)
-            return data?.data
+            return data
         } else {
             const { data } = await axios.get(`${BASE_URL}/current`)
-            return data?.data
+            return data
         }
     } catch (error) {
-        return error
+        return error.response
     }
 }
 
@@ -29,22 +29,12 @@ export const getForecast = async (city) => {
     try {
         if (city) {
             const { data } = await axios.get(`${BASE_URL}/forecast/${city}`)
-            const forecastArr = data.data.list.filter((value, index, self) =>
-                index === self.findIndex((t) => (
-                    t.dt_txt.slice(0, 10) === value.dt_txt.slice(0, 10)
-                ))
-            )
-            return forecastArr
+            return data
         } else {
             const { data } = await axios.get(`${BASE_URL}/forecast`)
-            const forecastArr = data.data.list.filter((value, index, self) =>
-                index === self.findIndex((t) => (
-                    t.dt_txt.slice(0, 10) === value.dt_txt.slice(0, 10)
-                ))
-            )
-            return forecastArr
+            return data
         }
     } catch (error) {
-        return error
+        return error.response
     }
 }
