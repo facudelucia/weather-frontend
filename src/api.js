@@ -4,7 +4,7 @@ const BASE_URL = 'https://weather-facu.herokuapp.com/v1'
 
 export const getLocation = async () => {
     try {
-        const { data } = await axios.get(`${BASE_URL}/location`)
+        const { data } = await axios.get(`http://ip-api.com/json`)
         return data
     } catch (error) {
         return error.response
@@ -14,10 +14,13 @@ export const getLocation = async () => {
 export const getWeather = async (city) => {
     try {
         if (city) {
-            const { data } = await axios.get(`${BASE_URL}/current/${city}`)
+            const { data } = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=cbfe5948ab4fd2408b685f0c50e2c61c`)
             return data
         } else {
-            const { data } = await axios.get(`${BASE_URL}/current`)
+            const location = await getLocation()
+            let lat = location.lat
+            let lon = location.lon
+            const { data } = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=cbfe5948ab4fd2408b685f0c50e2c61c`)
             return data
         }
     } catch (error) {
@@ -28,13 +31,16 @@ export const getWeather = async (city) => {
 export const getForecast = async (city) => {
     try {
         if (city) {
-            const { data } = await axios.get(`${BASE_URL}/forecast/${city}`)
+            const { data } = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=cbfe5948ab4fd2408b685f0c50e2c61c`)
             return data
         } else {
-            const { data } = await axios.get(`${BASE_URL}/forecast`)
+            const location = await getLocation()
+            let lat = location.lat
+            let lon = location.lon
+            const { data } = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=cbfe5948ab4fd2408b685f0c50e2c61c`)
             return data
         }
     } catch (error) {
         return error.response
     }
-}
+} 

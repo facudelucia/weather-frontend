@@ -20,8 +20,8 @@ function App() {
   useEffect(() => {
     const fetchLocation = async () => {
       const resp = await getLocation()
-      if (resp.ok) {
-        setLocation(resp?.data?.city)
+      if (resp.status === 'success') {
+        setLocation(resp?.city)
       }
     }
     fetchLocation()
@@ -30,10 +30,10 @@ function App() {
   useEffect(() => {
     const fetchWeather = async () => {
       const resp = await getWeather(searchState)
-      if (resp.ok) {
-        setWeather(resp?.data)
+      if (resp?.cod === 200) {
+        setWeather(resp)
         if (searchState) {
-          setLocation(resp?.data?.name)
+          setLocation(resp?.name)
         }
       }
     }
@@ -43,8 +43,8 @@ function App() {
   useEffect(() => {
     const fetchForecast = async () => {
       const resp = await getForecast(searchState)
-      if (resp.ok) {
-        const forecastArr = resp?.data?.list.filter((value, index, self) =>
+      if (resp?.cod === "200") {
+        const forecastArr = resp?.list.filter((value, index, self) =>
           index === self.findIndex((t) => (
             t.dt_txt.slice(0, 10) === value.dt_txt.slice(0, 10)
           ))
