@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     const fetchLocation = async () => {
       const resp = await getLocation()
-      if (resp.status === 'success') {
+      if (resp?.city) {
         setLocation(resp?.city)
       }
     }
