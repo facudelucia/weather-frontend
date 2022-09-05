@@ -8,7 +8,7 @@ To run local:
 - To run tests: 'npm test'
 
 To get current location:
-- The app is using the api 'http://ip-api.com/json'
+- The app is using the api 'https://ipapi.co/json'
 
 To get current weather:
 - If there is searching text:
